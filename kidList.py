@@ -8,18 +8,19 @@ import os
 import tkinter as tk
 from tkinter import messagebox, PhotoImage
 from PIL import Image, ImageTk
+from emailLogic import send_email
 
 
 def kidList():
     givers = ['Evangeline', 'Caleb', 'Kate', 'Grace', 'Isabella', 'Sophia', 'Lana']
     receivers = [
-        ['Caleb', 'Grace', 'Isabella', 'Kate', 'Sophia', 'Lana'],
-        ['Evangeline', 'Grace', 'Isabella', 'Sophia', 'Lana'],
-        ['Evangeline', 'Grace', 'Isabella', 'Sophia', 'Lana'],
-        ['Evangeline', 'Caleb', 'Isabella', 'Kate', 'Sophia', 'Lana'],
-        ['Evangeline', 'Caleb', 'Grace', 'Kate', 'Sophia', 'Lana'],
-        ['Evangeline', 'Caleb', 'Grace', 'Isabella', 'Kate', 'Lana'],
-        ['Evangeline', 'Caleb', 'Grace', 'Isabella', 'Kate', 'Sophia'],
+        ['Caleb', 'Grace', 'Isabella', 'Kate', 'Sophia', 'Lana'],        #Evangeline
+        ['Evangeline', 'Grace', 'Isabella', 'Sophia', 'Lana'],           #Caleb 
+        ['Evangeline', 'Grace', 'Isabella', 'Sophia', 'Lana'],           #Kate
+        ['Evangeline', 'Caleb', 'Isabella', 'Kate', 'Sophia', 'Lana'],   #Grace
+        ['Evangeline', 'Caleb', 'Grace', 'Kate', 'Sophia', 'Lana'],      #Isabella
+        ['Evangeline', 'Caleb', 'Grace', 'Isabella', 'Kate', 'Lana'],    #Sophia
+        ['Evangeline', 'Caleb', 'Grace', 'Isabella', 'Kate', 'Sophia'],  #Lana
     ]
 
     taken = []
@@ -45,4 +46,9 @@ def kidList():
     with open(file_path, 'w') as f:
         json.dump(pairings, f, indent=4)
 
+    #emails
+    send_email("Pollyanna 2023", "Attached is the kid list for the 2023 Pollyanna", "tua04072@gmail.com", file_path)
+
+
     return pairings
+

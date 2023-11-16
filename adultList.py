@@ -8,6 +8,7 @@ import os
 import tkinter as tk
 from tkinter import messagebox, PhotoImage
 from PIL import Image, ImageTk
+from emailLogic import send_email
 
 
 def adultList():
@@ -37,7 +38,6 @@ def adultList():
                 taken.append(chosen)
                 pairings[givers[i]] = chosen
             else:
-                # If there are no possible choices, restart the process
                 taken = [start]
                 pairings = {givers[0]: start}
                 break
@@ -49,5 +49,7 @@ def adultList():
     file_path = os.path.join(os.getcwd(), filename)
     with open(file_path, 'w') as f:
         json.dump(pairings, f, indent=4)
+
+    send_email("Pollyanna 2023", "Attached is the adult list for the 2023 Pollyanna", "tua04072@gmail.com", file_path)
 
     return pairings
