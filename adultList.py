@@ -51,5 +51,5 @@ def adultList():
         json.dump(pairings, f, indent=4)
 
     send_email("Pollyanna 2023", "Attached is the adult list for the 2023 Pollyanna", "tua04072@gmail.com", file_path)
-
+    #downs1973@comcast.net
     return pairings

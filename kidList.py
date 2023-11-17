@@ -48,7 +48,7 @@ def kidList():
 
     #emails
     send_email("Pollyanna 2023", "Attached is the kid list for the 2023 Pollyanna", "tua04072@gmail.com", file_path)
-
+    #moomama96@gmail.com
 
     return pairings
 
