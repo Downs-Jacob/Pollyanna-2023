@@ -14,14 +14,14 @@ from emailLogic import send_email
 def adultList():
     givers = ['Hannah','Jacob','Josh','Mary','Noah', 'Jason', 'Olivia', 'Mike']
     receivers = [
-        ['Jacob','Josh','Mary', 'Noah', 'Jason', 'Olivia', 'Mike'],  # Hannah
-        ['Hannah','Josh','Mary','Noah', 'Jason', 'Olivia', 'Mike'],  # Jacob
-        ['Hannah','Jacob','Mary','Noah', 'Jason', 'Olivia', 'Mike'],  # Josh
-        ['Hannah','Jacob','Josh', 'Jason', 'Olivia', 'Mike'],         # Mary
-        ['Hannah','Jacob','Josh', 'Jason', 'Olivia', 'Mike'],         # Noah
-        ['Hannah','Jacob','Josh', 'Mary','Noah', 'Olivia', 'Mike'],   # Jason
-        ['Hannah','Jacob','Josh', 'Mary','Noah', 'Jason'],             # Olivia
-        ['Hannah','Jacob','Josh', 'Mary','Noah', 'Jason'],             # Mike
+        ['Jacob','Josh','Mary', 'Noah', 'Jason', 'Olivia', 'Mike'],###### Hannah
+        ['Hannah','Josh','Noah', 'Jason', 'Olivia', 'Mike'],############# Jacob
+        ['Hannah','Jacob','Mary','Noah', 'Jason', 'Olivia', 'Mike'],##### Josh
+        ['Hannah','Jacob','Josh', 'Jason', 'Olivia', 'Mike'],############ Mary
+        ['Hannah','Jacob','Josh', 'Jason', 'Olivia', 'Mike'],############ Noah
+        ['Hannah','Jacob','Josh', 'Mary','Noah', 'Olivia', 'Mike'],###### Jason
+        ['Hannah','Jacob','Josh', 'Mary','Noah', 'Jason'],############### Olivia
+        ['Hannah','Jacob','Josh', 'Mary','Noah', 'Jason'],############### Mike
     ]
     taken = []
     pairings = {}
