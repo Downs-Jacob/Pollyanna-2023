@@ -138,7 +138,10 @@ playlist = [
 ]
 current_song = 0
 
+#######################################
 # Function to play the next song
+#######################################
+
 def play_next_song():
     global current_song
     if not pygame.mixer.music.get_busy():
@@ -150,8 +153,10 @@ def play_next_song():
             print("No more songs in the playlist.")
     root.after(1000, play_next_song)  # Check every 1000ms (1 second)
 
-
+#######################################
 # Run the main loop
+#######################################
+
 if __name__ == "__main__":
     play_next_song()
     root.mainloop()

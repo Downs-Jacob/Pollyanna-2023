@@ -40,8 +40,10 @@ def kidList():
     with open(file_path, 'w') as f:
         json.dump(pairings, f, indent=4)
 
+    #######################################
+    # emails
+    #######################################
 
-    #emails
     send_email("Pollyanna 2023 - Kid List", "Attached to this email is the kid list for the 2023 Pollyanna", "tua04072@gmail.com", file_path)
     #moomama96@gmail.com
     print("Cousin List Generated")

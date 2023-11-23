@@ -35,7 +35,7 @@ def adultList():
                 taken = [start]
                 pairings = {givers[0]: start}
                 break
-
+    
     # Save the pairings to a file
     current_date = date.today().strftime("%d-%m-%Y")
     random_number = random.randint(1, 50000)
