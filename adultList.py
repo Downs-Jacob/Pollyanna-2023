@@ -1,13 +1,7 @@
-import tkinter as tk
-from tkinter import messagebox
 import random
 import json
-import datetime
 from datetime import date
 import os
-import tkinter as tk
-from tkinter import messagebox, PhotoImage
-from PIL import Image, ImageTk
 from emailLogic import send_email
 
 
@@ -15,7 +9,7 @@ def adultList():
     givers = ['Hannah','Jacob','Josh','Mary','Noah', 'Jason', 'Olivia', 'Mike']
     receivers = [
         ['Jacob','Josh','Mary', 'Noah', 'Jason', 'Olivia', 'Mike'],###### Hannah
-        ['Hannah','Josh','Noah', 'Jason', 'Olivia', 'Mike'],############# Jacob
+        ['Hannah','Josh','Noah', 'Mary', 'Jason', 'Olivia', 'Mike'],############# Jacob
         ['Hannah','Jacob','Mary','Noah', 'Jason', 'Olivia', 'Mike'],##### Josh
         ['Hannah','Jacob','Josh', 'Jason', 'Olivia', 'Mike'],############ Mary
         ['Hannah','Jacob','Josh', 'Jason', 'Olivia', 'Mike'],############ Noah
@@ -50,6 +44,7 @@ def adultList():
     with open(file_path, 'w') as f:
         json.dump(pairings, f, indent=4)
 
-    send_email("Pollyanna 2023", "Attached is the adult list for the 2023 Pollyanna", "tua04072@gmail.com", file_path)
+    send_email("Pollyanna 2023 - Adult List", "Attached is the adult list for the 2023 Pollyanna", "tua04072@gmail.com", file_path)
     #downs1973@comcast.net
+    print("Adult List Generated")
     return pairings

@@ -1,15 +1,8 @@
-import tkinter as tk
-from tkinter import messagebox
 import random
 import json
-import datetime
 from datetime import date
 import os
-import tkinter as tk
-from tkinter import messagebox, PhotoImage
-from PIL import Image, ImageTk
 from emailLogic import send_email
-
 
 def kidList():
     givers = ['Evangeline', 'Caleb', 'Kate', 'Grace', 'Isabella', 'Sophia', 'Lana']
@@ -36,6 +29,7 @@ def kidList():
             else:
                 taken.clear()
                 pairings.clear()
+                print("Cousin List generated")
                 break
 
     # Save pairings to a file
@@ -46,9 +40,10 @@ def kidList():
     with open(file_path, 'w') as f:
         json.dump(pairings, f, indent=4)
 
-    #emails
-    send_email("Pollyanna 2023", "Attached is the kid list for the 2023 Pollyanna", "tua04072@gmail.com", file_path)
-    #moomama96@gmail.com
 
+    #emails
+    send_email("Pollyanna 2023 - Kid List", "Attached to this email is the kid list for the 2023 Pollyanna", "tua04072@gmail.com", file_path)
+    #moomama96@gmail.com
+    print("Cousin List Generated")
     return pairings
 
