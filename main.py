@@ -78,8 +78,8 @@ center_window(root, 700, 700)
 # Set a background color
 root.configure(bg='white')
 
-# ASCII art label for "POLLYANNA 2023"
-ascii_art = "POLLYANNA 2023"
+# ASCII art label for "POLLYANNA 2024"
+ascii_art = "POLLYANNA 2024"
 
 # Display ASCII art in a label with larger, bold font and more styling
 lbl_art = tk.Label(root, text=ascii_art, font=('Helvetica', 28, 'bold'), fg="#dd3024", bg='white', justify=tk.CENTER)

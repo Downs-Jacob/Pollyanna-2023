@@ -7,13 +7,13 @@ from emailLogic import send_email
 def kidList():
     givers = ['Evangeline', 'Caleb', 'Kate', 'Grace', 'Isabella', 'Sophia', 'Lana']
     receivers = [
-        ['Caleb', 'Grace', 'Isabella', 'Kate', 'Sophia', 'Lana'],        #Evangeline
-        ['Evangeline', 'Grace', 'Isabella', 'Sophia', 'Lana'],           #Caleb 
-        ['Evangeline', 'Grace', 'Isabella', 'Sophia', 'Lana'],           #Kate
-        ['Evangeline', 'Caleb', 'Isabella', 'Kate', 'Sophia', 'Lana'],   #Grace
-        ['Evangeline', 'Caleb', 'Grace', 'Kate', 'Sophia', 'Lana'],      #Isabella
-        ['Evangeline', 'Caleb', 'Grace', 'Isabella', 'Kate', 'Lana'],    #Sophia
-        ['Evangeline', 'Caleb', 'Grace', 'Isabella', 'Kate', 'Sophia'],  #Lana
+        ['Caleb', 'Grace', 'Isabella', 'Kate', 'Sophia', 'Lana'],########## Evangeline
+        ['Evangeline', 'Grace', 'Isabella', 'Sophia', 'Lana'],############# Caleb 
+        ['Evangeline', 'Grace', 'Isabella', 'Sophia', 'Lana'],############# Kate
+        ['Evangeline', 'Caleb', 'Isabella', 'Kate', 'Sophia', 'Lana'],##### Grace
+        ['Evangeline', 'Caleb', 'Grace', 'Kate', 'Sophia', 'Lana'],######## Isabella
+        ['Evangeline', 'Caleb', 'Grace', 'Isabella', 'Kate', 'Lana'],###### Sophia
+        ['Evangeline', 'Caleb', 'Grace', 'Isabella', 'Kate', 'Sophia'],#### Lana
     ]
 
     taken = []
@@ -44,7 +44,7 @@ def kidList():
     # emails
     #######################################
 
-    send_email("Pollyanna 2023 - Kid List", "Attached to this email is the kid list for the 2023 Pollyanna", "tua04072@gmail.com", file_path)
+    send_email("Pollyanna 2024 - Kid List", "Attached to this email is the kid list for the 2024 Pollyanna", "tua04072@gmail.com", file_path)
     #moomama96@gmail.com
     print("Cousin List Generated")
     return pairings
