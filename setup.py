@@ -1,14 +1,26 @@
+import os
 from setuptools import setup
 
-APP = ['main.py']  
+APP = ['main.py']
+
+# Dynamically collect all files in 'images' and 'songs' directories
+def collect_files(directory):
+    files = []
+    for root, _, filenames in os.walk(directory):
+        for filename in filenames:
+            files.append(os.path.join(root, filename))
+    return files
+
 DATA_FILES = [
-    ('images', ['images/santa.png']), 
-    ('songs', ['songs/lookLikeChristmas.mp3', 'songs/march.mp3', 'songs/white.mp3'])  
+    ('images', collect_files('images')),
+    ('songs', collect_files('songs')),
 ]
+
 OPTIONS = {
     'argv_emulation': True,
-    'packages': ['tkinter', 'PIL', 'pygame'], 
-    'includes': ['kidList', 'roundedButton', 'adultList'],  
+    'packages': ['PIL', 'pygame'],  # Include external dependencies
+    'includes': ['kidList', 'roundedButton', 'adultList'],  # Include custom modules
+    'iconfile': 'icon.icns',  # Optional: Add an app icon if available
 }
 
 setup(
@@ -16,4 +28,5 @@ setup(
     data_files=DATA_FILES,
     options={'py2app': OPTIONS},
     setup_requires=['py2app'],
+    install_requires=['Pillow', 'pygame'],  # Ensure dependencies are installed
 )
