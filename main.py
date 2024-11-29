@@ -8,7 +8,7 @@ from adultList import adultList
 from roundedButton import RoundedButton
 
 #######################################
-# Helper Functions
+# Helper Functions                     
 #######################################
 
 def center_window(win, width=200, height=150):

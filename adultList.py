@@ -59,14 +59,14 @@ import threading  # For threading email sending
 def adultList():
     givers = ['Hannah', 'Jacob', 'Joshua', 'Mary', 'Noah', 'Jason', 'Olivia', 'Mike']
     receivers = [
-        ['Jacob', 'Joshua', 'Mary', 'Noah', 'Jason', 'Olivia', 'Mike'],  # Hannah
+        ['Jacob', 'Joshua', 'Mary', 'Noah', 'Jason', 'Olivia', 'Mike'],   # Hannah
         ['Hannah', 'Joshua', 'Noah', 'Mary', 'Jason', 'Olivia', 'Mike'],  # Jacob
-        ['Hannah', 'Jacob', 'Mary', 'Noah', 'Jason', 'Olivia', 'Mike'],  # Josh
-        ['Hannah', 'Jacob', 'Joshua', 'Jason', 'Olivia', 'Mike'],        # Mary
-        ['Hannah', 'Jacob', 'Joshua', 'Jason', 'Olivia', 'Mike'],        # Noah
+        ['Hannah', 'Jacob', 'Mary', 'Noah', 'Jason', 'Olivia', 'Mike'],   # Josh
+        ['Hannah', 'Jacob', 'Joshua', 'Jason', 'Olivia', 'Mike'],         # Mary
+        ['Hannah', 'Jacob', 'Joshua', 'Jason', 'Olivia', 'Mike'],         # Noah
         ['Hannah', 'Jacob', 'Joshua', 'Mary', 'Noah', 'Olivia', 'Mike'],  # Jason
-        ['Hannah', 'Jacob', 'Joshua', 'Mary', 'Noah', 'Jason'],          # Olivia
-        ['Hannah', 'Jacob', 'Joshua', 'Mary', 'Noah', 'Jason'],          # Mike
+        ['Hannah', 'Jacob', 'Joshua', 'Mary', 'Noah', 'Jason'],           # Olivia
+        ['Hannah', 'Jacob', 'Joshua', 'Mary', 'Noah', 'Jason'],           # Mike
     ]
 
     attempts = 0
@@ -109,7 +109,7 @@ def adultList():
         send_email(
             "Pollyanna 2024 - Adult List",
             "Attached is the adult list for the 2024 Pollyanna.",
-            "tua04072@gmail.com",
+            "downs1973@comcast.net",
             #downs1973@comcast.net
             file_path
         )

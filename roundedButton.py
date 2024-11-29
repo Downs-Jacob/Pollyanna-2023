@@ -2,7 +2,7 @@ import tkinter as tk
 
 class RoundedButton(tk.Canvas):
     def __init__(self, parent, text="", command=None, **kwargs):
-        tk.Canvas.__init__(self, parent, height=45, width=210, bg='white', bd=0, highlightthickness=0, relief='flat')
+        tk.Canvas.__init__(self, parent, height=60, width=260, bg='white', bd=0, highlightthickness=0, relief='flat')
         self.command = command
 
         # Create a rounded rectangle for the button background

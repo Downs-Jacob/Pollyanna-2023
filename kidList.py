@@ -8,10 +8,10 @@ import threading  # For threading email sending
 def kidList():
     givers = ['Evangeline', 'Caleb', 'Kate', 'Grace', 'Isabella', 'Sophia', 'Lana']
     receivers = [
-        ['Caleb', 'Grace', 'Isabella', 'Kate', 'Sophia', 'Lana'],  # Evangeline
-        ['Evangeline', 'Grace', 'Isabella', 'Sophia', 'Lana'],      # Caleb 
-        ['Evangeline', 'Grace', 'Isabella', 'Sophia', 'Lana'],      # Kate
-        ['Evangeline', 'Caleb', 'Isabella', 'Kate', 'Sophia', 'Lana'],  # Grace
+        ['Caleb', 'Grace', 'Isabella', 'Kate', 'Sophia', 'Lana'],        # Evangeline
+        ['Evangeline', 'Grace', 'Isabella', 'Sophia', 'Lana'],           # Caleb 
+        ['Evangeline', 'Grace', 'Isabella', 'Sophia', 'Lana'],           # Kate
+        ['Evangeline', 'Caleb', 'Isabella', 'Kate', 'Sophia', 'Lana'],   # Grace
         ['Evangeline', 'Caleb', 'Grace', 'Kate', 'Sophia', 'Lana'],      # Isabella
         ['Evangeline', 'Caleb', 'Grace', 'Isabella', 'Kate', 'Lana'],    # Sophia
         ['Evangeline', 'Caleb', 'Grace', 'Isabella', 'Kate', 'Sophia'],  # Lana
@@ -57,7 +57,7 @@ def kidList():
         send_email(
             "Pollyanna 2024 - Kid List",
             "Attached to this email is the kid list for the 2024 Pollyanna.",
-            "tua04072@gmail.com",
+            "moomama96@gmail.com",
             #moomama96@gmail.com
             file_path
         )
