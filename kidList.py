@@ -3,8 +3,7 @@ import json
 from datetime import date
 import os
 from emailLogic import send_email
-import threading  # For threading email sending
-
+import threading
 
 def kidList():
     """Generate Pollyanna pairings for kids."""
@@ -19,14 +18,21 @@ def kidList():
         ['Evangeline', 'Caleb', 'Grace', 'Isabella', 'Kate', 'Sophia'],  # Lana
     ]
 
+    MAX_ATTEMPTS = 1000
     attempts = 0
-    while True:
+    
+    while attempts < MAX_ATTEMPTS:
         attempts += 1
         pairings = {}
         taken = set()
-
         valid = True
-        for i, giver in enumerate(givers):
+        
+        # Shuffle the givers to increase randomness
+        giver_indices = list(range(len(givers)))
+        random.shuffle(giver_indices)
+        
+        for i in giver_indices:
+            giver = givers[i]
             # Find a match not already taken
             available = [r for r in receivers[i] if r not in taken]
             if available:
@@ -38,31 +44,40 @@ def kidList():
                 break
 
         if valid:
-            print(f"Pairing succeeded after {attempts} attempt(s).")
+            print(f"Kid pairing succeeded after {attempts} attempt(s).")
             break
+    
+    if attempts >= MAX_ATTEMPTS:
+        print("Failed to generate valid kid pairings after maximum attempts.")
+        return {}
 
-    # Save pairings to a file
-    current_date = date.today().strftime("%Y-%m-%d")
-    filename = f'kidPollyanna_{current_date}.json'
-    file_path = os.path.join(os.getcwd(), filename)
+    try:
+        # Save pairings to a file
+        current_date = date.today().strftime("%Y-%m-%d")
+        filename = f'kidPollyanna_{current_date}.json'
+        file_path = os.path.join(os.getcwd(), filename)
 
-    with open(file_path, 'w') as f:
-        json.dump(pairings, f, indent=4)
+        with open(file_path, 'w') as f:
+            json.dump(pairings, f, indent=4)
 
-    print(f"Kid Pollyanna pairings saved to {filename}.")
+        print(f"Kid Pollyanna pairings saved to {filename}.")
 
-    #######################################
-    # Send email in a separate thread
-    #######################################
-    def send_email_in_thread():
-        send_email(
-            "Pollyanna 2024 - Kid List",
-            "Attached is the kid list for the 2024 Pollyanna.",
-            "tua04072@gmail.com",  # Replace with the recipient's email address
-            file_path
-        )
+        # Send email in a separate thread
+        def send_email_in_thread():
+            try:
+                send_email(
+                    "Pollyanna 2024 - Kid List",
+                    "Attached is the kid list for the 2024 Pollyanna.",
+                    "tua04072@gmail.com",
+                    file_path
+                )
+            except Exception as e:
+                print(f"Error sending email: {str(e)}")
 
-    email_thread = threading.Thread(target=send_email_in_thread)
-    email_thread.start()
+        email_thread = threading.Thread(target=send_email_in_thread)
+        email_thread.start()
+
+    except Exception as e:
+        print(f"Error saving pairings: {str(e)}")
 
     return pairings
