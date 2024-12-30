@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import (
     QApplication, QMainWindow, QPushButton, QLabel, QVBoxLayout, QHBoxLayout, QWidget, QMessageBox
 )
 from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QPixmap
 from kidList import kidList
 from adultList import adultList
 import pygame
@@ -14,7 +15,8 @@ class PollyannaApp(QMainWindow):
         super().__init__()
         self.current_year = datetime.now().year
         self.setWindowTitle(f"Pollyanna {self.current_year}")
-        self.setGeometry(100, 100, 800, 500)
+        self.setGeometry(100, 100, 800, 600)
+        self.setStyleSheet("background-color: white;")
         self.kid_pairings = []
         self.adult_pairings = []
         self.current_pairings = []
@@ -29,43 +31,100 @@ class PollyannaApp(QMainWindow):
 
         # Layout Setup
         self.layout = QVBoxLayout()
+        self.layout.setSpacing(20)
+        self.layout.setContentsMargins(20, 40, 20, 40)
 
         # Title Label
         self.title_label = QLabel(f"🎁 Welcome to Pollyanna {self.current_year} 🎁", self)
         self.title_label.setAlignment(Qt.AlignCenter)
-        self.title_label.setStyleSheet(
-            "font-size: 32px; color: #4CAF50; font-weight: bold; margin: 20px;"
-        )
+        self.title_label.setStyleSheet("""
+            font-size: 48px; 
+            color: #4CAF50; 
+            font-weight: bold; 
+            margin: 20px;
+            padding: 20px;
+        """)
         self.layout.addWidget(self.title_label)
+
+        # Add some spacing
+        self.layout.addStretch()
+
+        # Santa Image
+        self.santa_label = QLabel(self)
+        santa_path = os.path.join(os.path.dirname(__file__), "images", "santa.png")
+        if os.path.exists(santa_path):
+            pixmap = QPixmap(santa_path)
+            scaled_pixmap = pixmap.scaled(300, 300, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+            self.santa_label.setPixmap(scaled_pixmap)
+            self.santa_label.setAlignment(Qt.AlignCenter)
+        else:
+            print(f"Santa image not found at: {santa_path}")
+        self.layout.addWidget(self.santa_label)
 
         # Subtitle
         self.subtitle_label = QLabel("Choose a group to start the Pollyanna pairing!", self)
         self.subtitle_label.setAlignment(Qt.AlignCenter)
-        self.subtitle_label.setStyleSheet("font-size: 16px; color: #555; margin-bottom: 20px;")
+        self.subtitle_label.setStyleSheet("""
+            font-size: 24px; 
+            color: #555; 
+            margin: 20px;
+        """)
         self.layout.addWidget(self.subtitle_label)
+
+        # Add some spacing
+        self.layout.addStretch()
 
         # Buttons Layout
         button_layout = QHBoxLayout()
         button_layout.setAlignment(Qt.AlignCenter)
+        button_layout.setSpacing(40)
 
         self.kid_button = QPushButton("🎈 Start Kid Pollyanna")
-        self.kid_button.setStyleSheet(self.button_style())
-        self.kid_button.setFixedWidth(200)
+        self.kid_button.setStyleSheet("""
+            QPushButton {
+                background-color: #2196F3;
+                color: white;
+                font-size: 20px;
+                font-weight: bold;
+                border: none;
+                border-radius: 25px;
+                padding: 15px 30px;
+                min-width: 250px;
+            }
+            QPushButton:hover {
+                background-color: #1976D2;
+            }
+        """)
         self.kid_button.clicked.connect(self.start_kid_pollyanna)
         button_layout.addWidget(self.kid_button)
 
         self.adult_button = QPushButton("🎉 Start Adult Pollyanna")
-        self.adult_button.setStyleSheet(self.button_style())
-        self.adult_button.setFixedWidth(200)
+        self.adult_button.setStyleSheet("""
+            QPushButton {
+                background-color: #2196F3;
+                color: white;
+                font-size: 20px;
+                font-weight: bold;
+                border: none;
+                border-radius: 25px;
+                padding: 15px 30px;
+                min-width: 250px;
+            }
+            QPushButton:hover {
+                background-color: #1976D2;
+            }
+        """)
         self.adult_button.clicked.connect(self.start_adult_pollyanna)
         button_layout.addWidget(self.adult_button)
 
         self.layout.addLayout(button_layout)
 
+        # Add some spacing at the bottom
+        self.layout.addStretch()
+
         # Container widget
         container = QWidget()
         container.setLayout(self.layout)
-        container.setStyleSheet("background-color: white;")
         self.setCentralWidget(container)
 
     def init_music(self):
