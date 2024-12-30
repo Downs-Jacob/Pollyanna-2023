@@ -107,8 +107,7 @@ class PollyannaApp(QMainWindow):
                 QMessageBox.critical(self, "Error", "No valid kid Pollyanna pairings could be generated.")
                 return
             
-            self.kid_pairings = list(pairings.items())
-            self.current_pairings = self.kid_pairings
+            self.current_pairings = pairings
             self.index = 0
             self.open_reveal_window("Kid Pollyanna Reveal")
         except Exception as e:
@@ -121,77 +120,130 @@ class PollyannaApp(QMainWindow):
                 QMessageBox.critical(self, "Error", "No valid adult Pollyanna pairings could be generated.")
                 return
             
-            self.adult_pairings = list(pairings.items())
-            self.current_pairings = self.adult_pairings
+            self.current_pairings = pairings
             self.index = 0
             self.open_reveal_window("Adult Pollyanna Reveal")
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Error generating adult Pollyanna: {str(e)}")
 
     def open_reveal_window(self, title):
-        self.reveal_window = QWidget()
-        self.reveal_window.setWindowTitle(title)
-        self.reveal_window.setGeometry(200, 200, 600, 300)
+        self.reveal_window = RevealWindow(self.current_pairings, title)
+        self.reveal_window.show()
 
+class RevealWindow(QWidget):
+    def __init__(self, pairings, title="Pollyanna Reveal"):
+        super().__init__()
+        self.setWindowTitle(title)
+        self.setGeometry(200, 200, 600, 400)
+        self.setStyleSheet("background-color: #333333;")
+        
+        # Create layout
         self.reveal_layout = QVBoxLayout()
-
-        # Reveal label with improved styling
-        self.reveal_label = QLabel("", self.reveal_window)
-        self.reveal_label.setAlignment(Qt.AlignCenter)
-        self.reveal_label.setStyleSheet("""
+        self.reveal_layout.setAlignment(Qt.AlignCenter)
+        
+        # Name at the top
+        self.name_label = QLabel("", self)
+        self.name_label.setAlignment(Qt.AlignCenter)
+        self.name_label.setStyleSheet("""
+            font-size: 32px;
+            margin: 10px;
+            padding: 10px;
+            color: white;
+        """)
+        
+        # Create labels
+        self.giver_label = QLabel("Click Next to start revealing Pollyannas", self)
+        self.giver_label.setAlignment(Qt.AlignCenter)
+        self.giver_label.setStyleSheet("""
             font-size: 24px;
             margin: 20px;
             padding: 20px;
-            color: #333;
-            background-color: #f5f5f5;
-            border-radius: 10px;
+            color: white;
         """)
-        self.reveal_layout.addWidget(self.reveal_label)
-
-        # Progress indicator
-        self.progress_label = QLabel("", self.reveal_window)
-        self.progress_label.setAlignment(Qt.AlignCenter)
-        self.progress_label.setStyleSheet("font-size: 14px; color: #666;")
-        self.reveal_layout.addWidget(self.progress_label)
-
-        # Reveal button
-        self.reveal_button = QPushButton("🔍 Click to Reveal Pollyanna", self.reveal_window)
-        self.reveal_button.setStyleSheet(self.button_style())
-        self.reveal_button.setFixedWidth(250)
-        self.reveal_button.clicked.connect(self.handle_reveal_click)
-        self.reveal_layout.addWidget(self.reveal_button, alignment=Qt.AlignCenter)
-
-        self.reveal_window.setLayout(self.reveal_layout)
-        self.reveal_window.setStyleSheet("background-color: white;")
+        
+        self.receiver_label = QLabel("", self)
+        self.receiver_label.setAlignment(Qt.AlignCenter)
+        self.receiver_label.setStyleSheet("""
+            font-size: 48px;
+            margin: 20px;
+            padding: 20px;
+            color: #4CAF50;
+        """)
+        
+        # Create button
+        self.reveal_button = QPushButton("Start", self)
+        self.reveal_button.clicked.connect(self.reveal_next)
+        self.reveal_button.setStyleSheet("""
+            QPushButton {
+                background-color: #4CAF50;
+                color: white;
+                padding: 15px 30px;
+                font-size: 18px;
+                border: none;
+                border-radius: 5px;
+                min-width: 200px;
+            }
+            QPushButton:hover {
+                background-color: #45a049;
+            }
+        """)
+        
+        # Add widgets to layout
+        self.reveal_layout.addWidget(self.name_label)
+        self.reveal_layout.addStretch()
+        self.reveal_layout.addWidget(self.giver_label)
+        self.reveal_layout.addWidget(self.receiver_label)
+        self.reveal_layout.addStretch()
+        self.reveal_layout.addWidget(self.reveal_button)
+        self.setLayout(self.reveal_layout)
+        
+        # Initialize state
+        self.current_pairings = pairings
+        # Get the ordered list of givers
+        if "Evangeline" in pairings:  # Kid list
+            self.givers = ['Evangeline', 'Caleb', 'Kate', 'Grace', 'Isabella', 'Sophia', 'Lana']
+        else:  # Adult list
+            self.givers = ['Hannah', 'Jacob', 'Joshua', 'Mary', 'Noah', 'Jason', 'Olivia', 'Mike']
+        self.index = 0
         self.reveal_state = False
-        self.show_current_giver()
-
-        self.reveal_window.show()
-
-    def show_current_giver(self):
-        if self.index < len(self.current_pairings):
-            giver, _ = self.current_pairings[self.index]
-            self.reveal_label.setText(f"{giver}, click below to reveal your Pollyanna!")
-            self.progress_label.setText(f"Pairing {self.index + 1} of {len(self.current_pairings)}")
-        else:
-            self.reveal_label.setText("🎉 All Pollyanna pairings have been revealed! 🎉")
-            self.progress_label.setText("Complete!")
-            self.reveal_button.setEnabled(False)
-
-    def handle_reveal_click(self):
+        
+        # Set initial name
+        self.name_label.setText(self.givers[0])
+        
+        # Play sound
+        try:
+            pygame.mixer.init()
+            pygame.mixer.music.load("jingle.mp3")
+            pygame.mixer.music.play()
+        except Exception as e:
+            print(f"Could not play sound: {str(e)}")
+    
+    def reveal_next(self):
+        """Show the next Pollyanna pairing"""
         if not self.reveal_state:
-            giver, receiver = self.current_pairings[self.index]
-            self.reveal_label.setText(
-                f"{giver}, your Pollyanna is:\n"
-                f"🎁 <span style='color: #4CAF50; font-size: 28px;'>{receiver}</span> 🎁"
-            )
+            # Show next pairing
+            giver = self.givers[self.index]
+            receiver = self.current_pairings[giver]
+            
+            self.giver_label.setText("Your Pollyanna is:")
+            self.receiver_label.setText(f"🎁 {receiver} 🎁")
+            
             self.reveal_button.setText("➡️ Next")
             self.reveal_state = True
         else:
             self.index += 1
-            self.reveal_state = False
-            self.reveal_button.setText("🔍 Click to Reveal Pollyanna")
-            self.show_current_giver()
+            if self.index >= len(self.givers):
+                self.name_label.setText("")
+                self.giver_label.setText("All Pollyannas have been revealed!")
+                self.receiver_label.setText("🎉")
+                self.reveal_button.setText("Close")
+                self.reveal_button.clicked.disconnect()
+                self.reveal_button.clicked.connect(self.close)
+            else:
+                self.reveal_state = False
+                self.name_label.setText(self.givers[self.index])
+                self.giver_label.setText("Click Next to reveal your Pollyanna")
+                self.receiver_label.setText("")
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
